@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/tamalsaha/goembed-demo/hub/resourcedescriptors"
 	"io/fs"
-	"path/filepath"
 )
 
 func main() {
@@ -16,12 +15,20 @@ func main() {
 	//for _, e := range entries {
 	//	fmt.Println(e.Name(), e.Type(), e.IsDir())
 	//}
-	fs.WalkDir(f, ".", func(path string, e fs.DirEntry, err error) error {
+
+	fs.WalkDir(f, ".", func(filename string, e fs.DirEntry, err error) error {
 		if !e.IsDir() {
-			fmt.Println(filepath.Join(path, e.Name()))
+			fmt.Println(filename)
 		}
 		return err
 	})
+	fmt.Println("--------------------------------------------------")
+
+	data, err := f.ReadFile("app.k8s.io/v1beta1/applications.yaml")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(data))
 }
 //
 //func main() {
