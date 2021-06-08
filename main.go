@@ -7,7 +7,13 @@ import (
 )
 
 func main() {
-	f := resourcedescriptors.FS()
+	f2 := resourcedescriptors.FS()
+	f, err := fs.Sub(f2, "apps") // get sub dir
+	if err != nil {
+		panic(err)
+	}
+
+
 	//entries, err := f.ReadDir("apps")
 	//if err != nil {
 	//	panic(err)
@@ -24,11 +30,11 @@ func main() {
 	})
 	fmt.Println("--------------------------------------------------")
 
-	data, err := f.ReadFile("app.k8s.io/v1beta1/applications.yaml")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(data))
+	//data, err := f.ReadFile("app.k8s.io/v1beta1/applications.yaml")
+	//if err != nil {
+	//	panic(err)
+	//}
+	//fmt.Println(string(data))
 }
 //
 //func main() {
